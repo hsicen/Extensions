@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="Breadcrumb">
+    <attr name="selectTextSize" format="dimension" />
+    <attr name="selectTextColor" format="color" />
+    <attr name="normalTextSize" format="dimension" />
+    <attr name="normalTextColor" format="color" />
+    <attr name="splitMark" format="string" />
+  </declare-styleable>
+
+  <declare-styleable name="CleanableEditText">
+    <attr name="clearIcon" format="reference" />
+    <attr name="iconLeftPadding" format="dimension" />
+  </declare-styleable>
+
+  <declare-styleable name="MaterialEditText">
+    <attr name="useLabel" format="boolean" />
+    <attr name="label" format="string" />
+    <attr name="labelSize" format="dimension" />
+    <attr name="labelColor" format="color" />
+  </declare-styleable>
+
+</resources>
