@@ -1,6 +1,5 @@
 package com.hsicen.extension.extensions
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Typeface
@@ -148,64 +147,6 @@ inline fun View.hide(full: Boolean = true) {
     visibility = View.GONE
   } else if (!full && visibility != View.INVISIBLE) {
     visibility = View.INVISIBLE
-  }
-}
-
-@SuppressLint("ClickableViewAccessibility")
-fun View.setCustomClickListener(
-  longClickDuration: Long = 500L,
-  onClick: ((v: View) -> Unit)? = null,
-  onLongClick: ((v: View) -> Boolean)? = null
-) {
-  var clickHandled = false
-
-  if (onClick != null && !isClickable) isClickable = true
-  if (onLongClick != null && !isLongClickable) isLongClickable = true
-  if (!isClickable && !isLongClickable) return
-
-  val clickAction = Runnable {
-    if (onClick != null && isClickable) {
-      onClick.invoke(this)
-      playSoundEffect(SoundEffectConstants.CLICK)
-    }
-  }
-  val longClickAction = Runnable {
-    if (onLongClick != null && isLongClickable) {
-      clickHandled = onLongClick.invoke(this)
-      if (clickHandled) {
-        performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-      }
-    }
-  }
-
-  fun View.touchIn(rawX: Float, rawY: Float): Boolean {
-    val location = IntArray(2)
-    getLocationOnScreen(location)
-    val left = location[0]
-    val top = location[1]
-    val right = left + width
-    val bottom = top + height
-    return rawX >= left && rawX <= right && rawY >= top && rawY <= bottom
-  }
-
-  setOnTouchListener { v, event ->
-    if (event.action == MotionEvent.ACTION_DOWN) {
-      clickHandled = false
-      v.removeCallbacks(longClickAction)
-      v.postDelayed(longClickAction, longClickDuration)
-    } else if (event.action == MotionEvent.ACTION_MOVE) {
-      if (!touchIn(event.rawX, event.rawY)) {
-        v.removeCallbacks(longClickAction)
-      }
-    } else if (event.action == MotionEvent.ACTION_UP) {
-      if (!clickHandled && touchIn(event.rawX, event.rawY)) {
-        clickAction.run()
-      }
-      v.removeCallbacks(longClickAction)
-    } else if (event.action == MotionEvent.ACTION_CANCEL) {
-      v.removeCallbacks(longClickAction)
-    }
-    true
   }
 }
 
