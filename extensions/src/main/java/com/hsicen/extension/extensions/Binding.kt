@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -23,7 +24,7 @@ import kotlin.reflect.KProperty
  */
 
 //扩展  Activity  inflate方式
-inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
+inline fun <T : ViewBinding> ComponentActivity.viewBinding(
   crossinline bindingInflater: (LayoutInflater) -> T
 ) = lazy(LazyThreadSafetyMode.NONE) {
   bindingInflater.invoke(layoutInflater).apply {
