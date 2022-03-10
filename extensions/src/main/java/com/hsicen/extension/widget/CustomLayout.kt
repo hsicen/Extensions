@@ -27,6 +27,8 @@ abstract class CustomLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr) {
 
+    protected abstract fun onMeasureChildren(widthMeasureSpec: Int, heightMeasureSpec: Int)
+
     class LayoutParams(width: Int, height: Int) : MarginLayoutParams(width, height)
 
     override fun generateDefaultLayoutParams(): LayoutParams {
@@ -37,8 +39,6 @@ abstract class CustomLayout @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         this.onMeasureChildren(widthMeasureSpec, heightMeasureSpec)
     }
-
-    protected abstract fun onMeasureChildren(widthMeasureSpec: Int, heightMeasureSpec: Int)
 
     protected fun View.autoMeasure() {
         if (isGone) return
