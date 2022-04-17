@@ -21,4 +21,50 @@
     <attr name="labelColor" format="color" />
   </declare-styleable>
 
+  <!-- 公共属性 -->
+  <attr name="roundAsCircle" format="boolean" />
+  <attr name="roundCorner" format="integer|dimension" />
+  <attr name="roundCornerTopLeft" format="integer|dimension" />
+  <attr name="roundCornerTopRight" format="integer|dimension" />
+  <attr name="roundCornerBottomLeft" format="integer|dimension" />
+  <attr name="roundCornerBottomRight" format="integer|dimension" />
+  <attr name="strokeColor" format="color|reference" />
+  <attr name="strokeWidth" format="integer|dimension" />
+  <attr name="clipBackground" format="boolean" />
+  <!-- 圆角布局 真正用于解析的属性 -->
+  <declare-styleable name="RCAttrs">
+    <attr name="roundAsCircle" />
+    <attr name="roundCorner" />
+    <attr name="roundCornerTopLeft" />
+    <attr name="roundCornerTopRight" />
+    <attr name="roundCornerBottomLeft" />
+    <attr name="roundCornerBottomRight" />
+    <attr name="strokeColor" />
+    <attr name="strokeWidth" />
+    <attr name="clipBackground" />
+  </declare-styleable>
+  <!-- 用于提示 -->
+  <declare-styleable name="RCImageView">
+    <attr name="roundAsCircle" />
+    <attr name="roundCorner" />
+    <attr name="roundCornerTopLeft" />
+    <attr name="roundCornerTopRight" />
+    <attr name="roundCornerBottomLeft" />
+    <attr name="roundCornerBottomRight" />
+    <attr name="strokeColor" />
+    <attr name="strokeWidth" />
+    <attr name="clipBackground" />
+  </declare-styleable>
+  <declare-styleable name="RCConstraintLayout">
+    <attr name="roundAsCircle" />
+    <attr name="roundCorner" />
+    <attr name="roundCornerTopLeft" />
+    <attr name="roundCornerTopRight" />
+    <attr name="roundCornerBottomLeft" />
+    <attr name="roundCornerBottomRight" />
+    <attr name="strokeColor" />
+    <attr name="strokeWidth" />
+    <attr name="clipBackground" />
+  </declare-styleable>
+
 </resources>
