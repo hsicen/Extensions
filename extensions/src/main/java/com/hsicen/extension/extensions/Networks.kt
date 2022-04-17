@@ -49,7 +49,7 @@ fun phoneIp(): String {
       while (enumIpAddr.hasMoreElements()) {
         val inetAddress = enumIpAddr.nextElement()
         if (!inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
-          return inetAddress.getHostAddress().toString()
+          return inetAddress.getHostAddress()?.toString() ?: ""
         }
       }
     }

@@ -23,8 +23,7 @@ class Breadcrumb @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
-) :
-  HorizontalScrollView(context, attrs, defStyleAttr) {
+) : HorizontalScrollView(context, attrs, defStyleAttr) {
 
   /*** mark load times*/
   private var mFirstLoad = false
