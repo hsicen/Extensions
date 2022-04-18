@@ -23,33 +23,61 @@ import kotlin.reflect.KProperty
  * 描述：ViewBinding扩展
  */
 
-//扩展  Activity  inflate方式
+/**
+ * 扩展  Activity  inflate方式
+ * @receiver ComponentActivity
+ * @param bindingInflater inflate 方法
+ * @param setContent 是否主动调用 setContentView
+ * @return ViewBinding
+ */
 inline fun <T : ViewBinding> ComponentActivity.viewBinding(
-  crossinline bindingInflater: (LayoutInflater) -> T
+  crossinline bindingInflater: (LayoutInflater) -> T,
+  setContent: Boolean = false
 ) = lazy(LazyThreadSafetyMode.NONE) {
   bindingInflater.invoke(layoutInflater).apply {
-    setContentView(root)
+    if (setContent) setContentView(root)
   }
 }
 
-//Dialog  inflate方式
+/**
+ * Dialog  inflate方式
+ * @receiver Dialog
+ * @param bindingInflater inflate 方法
+ * @param setContent 是否主动调用 setContentView
+ * @return ViewBinding
+ */
 inline fun <T : ViewBinding> Dialog.viewBinding(
-  crossinline bindingInflater: (LayoutInflater) -> T
+  crossinline bindingInflater: (LayoutInflater) -> T,
+  setContent: Boolean = false
 ) = lazy(LazyThreadSafetyMode.NONE) {
   bindingInflater.invoke(layoutInflater).apply {
-    setContentView(root)
+    if (setContent) setContentView(root)
   }
 }
 
-//Fragment bind方式
+/**
+ * Fragment bind方式，绑定已经 inflate 的 View
+ * @receiver Fragment
+ * @param viewBindingFactory bind(View) 方法
+ * @return ViewBinding
+ */
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
   FragmentViewBindingByBind(this, viewBindingFactory)
 
-//Fragment inflate方式
+/**
+ * Fragment inflate方式，inflate 后要在 Fragment 中返回 View
+ * @receiver Fragment
+ * @param viewBindingFactory inflate 方法
+ * @return ViewBinding
+ */
 fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (LayoutInflater) -> T) =
   FragmentViewBindingByInflate(this, viewBindingFactory)
 
-//基类
+/**
+ * 基类 Activity，不需要手动 setContentView
+ * @param T  xml 生产的 ViewBinding
+ * @property binding ViewBinding 实例
+ */
 abstract class BindingActivity<T : ViewBinding> : AppCompatActivity() {
   protected lateinit var binding: T
 
@@ -67,6 +95,12 @@ abstract class BindingActivity<T : ViewBinding> : AppCompatActivity() {
   }
 }
 
+/**
+ * 基类 Fragment，已经在 Fragment 的 onCreateView 中 inflate View 并返回
+ * @param T xml 生产的 ViewBinding
+ * @property _binding 内部的 ViewBinding 实例
+ * @property binding 外部使用的 ViewBinding 实例
+ */
 abstract class BindingFragment<T : ViewBinding> : Fragment() {
   private var _binding: T? = null
   protected val binding get() = _binding!!
