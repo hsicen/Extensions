@@ -3,7 +3,10 @@ package com.hsicen.extension.extensions
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Typeface
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.TextView
 import androidx.core.view.ViewCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -106,6 +109,34 @@ inline fun BottomSheetDialogFragment.forbidScroll() {
       }
     }
   })
+}
+
+inline fun <reified T : ViewGroup.LayoutParams> View.updateLayoutParams(block: T.() -> Unit) {
+  val params = layoutParams as T
+  block(params)
+  layoutParams = params
+}
+
+fun View.updateMargin(left: Int? = null, top: Int? = null, right: Int? = null, bottom: Int? = null) {
+  (layoutParams as? ViewGroup.MarginLayoutParams)?.let { param ->
+    updateLayoutParams<ViewGroup.MarginLayoutParams> {
+      left?.let {
+        marginStart = left
+      }
+
+      right?.let {
+        marginEnd = right
+      }
+
+      top?.let {
+        topMargin = top
+      }
+
+      bottom?.let {
+        bottomMargin = bottom
+      }
+    }
+  }
 }
 
 fun View.updateMargin(
