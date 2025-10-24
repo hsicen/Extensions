@@ -117,8 +117,13 @@ inline fun <reified T : ViewGroup.LayoutParams> View.updateLayoutParams(block: T
   layoutParams = params
 }
 
-fun View.updateMargin(left: Int? = null, top: Int? = null, right: Int? = null, bottom: Int? = null) {
-  (layoutParams as? ViewGroup.MarginLayoutParams)?.let { param ->
+fun View.updateMargin(
+  left: Int? = null,
+  top: Int? = null,
+  right: Int? = null,
+  bottom: Int? = null
+) {
+  (layoutParams as? ViewGroup.MarginLayoutParams)?.let {
     updateLayoutParams<ViewGroup.MarginLayoutParams> {
       left?.let {
         marginStart = left
